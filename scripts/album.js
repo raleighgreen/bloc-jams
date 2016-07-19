@@ -28,6 +28,21 @@ var albumMarconi = {
     ]
 };
 
+var albumVanGogh = {
+    title: 'The Impressionist',
+    artist: 'Vincent van Gogh',
+    label: 'VG',
+    year: '1888',
+    albumArtUrl: 'assets/images/album_covers/04.png',
+    songs: [
+        { title: 'Starry Night', duration: '2:25' },
+        { title: 'Sunflowers', duration: '4:11' },
+        { title: 'Bedroom in Arles', duration: '3:01' },
+        { title: 'Portrait of Dr. Gachet', duration: '2:41' },
+        { title: 'Wheat Fields', duration: '3:20' },
+        { title: 'Irises', duration: '1:89'}
+    ]
+}
 
 var createSongRow = function(songNumber, songName, songLength) {
     var template = 
@@ -37,32 +52,45 @@ var createSongRow = function(songNumber, songName, songLength) {
     + '  <td class="song-item-duration">' + songLength + '</td>'
     + '</tr>'
     ;
-    
     return template;
 };
 
-var setCurrentAlbum = function(album) {
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
-    var albumTitle = document.getElementsByClassName('album-view-title')[0];
-    var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-    var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-    var albumImage = document.getElementsByClassName('album-cover-art')[0];
-    var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
+var setCurrentAlbum = function(album) {
 
     albumTitle.firstChild.nodeValue = album.title;
     albumArtist.firstChild.nodeValue = album.artist;
     albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
     albumImage.setAttribute('src', album.albumArtUrl);
-
     albumSongList.innerHTML = '';
     
     for (var i = 0; i < album.songs.length; i++) {
         albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
-        
     }
+    
 };
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+    
+    var albums = [albumPicasso, albumMarconi, albumVanGogh];
+    var index = 1;
+    
+    albumImage.addEventListener('click', function(event) {
+        console.log(index);
+        if (index < albums.length) {
+            setCurrentAlbum(albums[index]);
+            index++;
+        } else {
+            index = 1;
+            setCurrentAlbum(albumPicasso);
+        }
+    });
 };
     
