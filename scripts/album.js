@@ -55,6 +55,7 @@ var createSongRow = function(songNumber, songName, songLength) {
     return template;
 };
 
+// Select elements that we want to populate with text dynamically
 var albumTitle = document.getElementsByClassName('album-view-title')[0];
 var albumArtist = document.getElementsByClassName('album-view-artist')[0];
 var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
@@ -63,13 +64,17 @@ var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
 
 var setCurrentAlbum = function(album) {
-
+    
+    // Clear contents of album song list container
     albumTitle.firstChild.nodeValue = album.title;
     albumArtist.firstChild.nodeValue = album.artist;
     albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
     albumImage.setAttribute('src', album.albumArtUrl);
+    
+    // Clear contents of album song list container
     albumSongList.innerHTML = '';
     
+    // Build list of songs from album JavaScript object
     for (var i = 0; i < album.songs.length; i++) {
         albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
     }
