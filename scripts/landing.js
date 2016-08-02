@@ -8,9 +8,9 @@ var animatePoints = function() {
     $.each($('.point'), revealPoint);
 };
 
-$(window.load) = function() {
-    if ($(window).height > 950) {
-        animatePoints(pointsArray);
+$(window).load(function() {
+    if ($(window).height() > 950) {
+        animatePoints();
     }
 
     var scrollDistance = $('.selling-points').offset().top - $(window).height() + 200;
