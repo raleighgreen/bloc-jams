@@ -172,12 +172,12 @@ var filterTimeCode = function(timeInSeconds) {
     var wholeSec = Math.floor(seconds);
     var wholeMin = Math.floor(seconds / 60);
     var remainingSeconds = wholeSec % 60;
-    var output = wholeMin + ':' + remainingSeconds;
+    var output = wholeMin + ':' + wholeSec;
     
     if (remainingSeconds < 10) {
-        output = wholeMin + ':' + '0' + wholeSec;
-    } else if (remainingSeconds >= 60) {
-        output = wholeMin + ':' + (remainingSeconds - 60);
+        output = wholeMin + ':' + '0' + remainingSeconds;
+    } else {
+        output = wholeMin + ':' + remainingSeconds;
     } 
     
     return output;
